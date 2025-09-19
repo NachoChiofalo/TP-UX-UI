@@ -1,0 +1,384 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin-top: 0px;
+    padding: 0px;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+/*navbar*/
+.nav-container {
+    position: sticky;
+    z-index: 3;
+    top: 0;
+}
+
+.navbar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 60px;
+    background-color: #1b1b1b;
+    padding: 0 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.inicio {
+    justify-self: flex-start;
+    margin-right: auto;
+}
+
+.inicio a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 4vh;
+    cursor: pointer;
+}
+
+.mostrar-carrito {
+    font-size: 25px;
+    cursor: pointer;
+    color: #fff;
+    background-color: transparent;
+    border: none;
+    margin-left: 20px;
+}
+
+.buscador {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+}
+
+#input-busqueda {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+#boton-buscar {
+    padding: 9px 16px;
+    background-color: #313030;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    margin-left: 0px;
+    cursor: pointer;
+}
+
+#boton-buscar:hover {
+    background-color: #464444;
+}
+
+#botonVolver {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombras sutiles */
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#botonVolver i {
+    margin-right: 8px;
+}
+
+#botonVolver:hover {
+    background-color: #333;
+    transform: translateY(-2px); /* Levanta ligeramente al hacer hover */
+}
+
+main {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.mensaje-bienvenida {
+    text-align: center;
+    margin-bottom: 40px;
+    background-color: #f9f9f9;
+    padding: 40px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mensaje-bienvenida h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 16px;
+}
+
+.mensaje-bienvenida h3 {
+    font-size: 20px;
+    color: #666;
+    font-weight: 400;
+}
+
+.titulo-principal {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0px;
+}
+
+/* Estilos para las tarjetas de productos */
+.contentido-negocio {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 80px;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    width: 100%;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card>img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.price {
+    color: grey;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.card button {
+    border: none;
+    outline: none;
+    padding: 12px 20px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.card button:hover {
+    background-color: #333;
+}
+
+/* Añadir estilos para hacer el botón más atractivo */
+.card button:active {
+    transform: translateY(2px);
+}
+
+/* Estilos para la imagen dentro de la tarjeta */
+.card img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    border-radius: 8px;
+}
+
+/*carrito content*/
+.carrito-container {
+    width: 80%;
+    margin: 0 10%;
+    max-height: 88vh;
+    color: #fff;
+    background-color: #121212;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+
+    /*top*/
+    position: fixed;
+    overflow: auto;
+    z-index: 9;
+    top: 10vh;
+    bottom: 1vh;
+    scrollbar-color: none;
+}
+
+.carrito-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carrito-header {
+    display: flex;
+    justify-content: space-around;
+    background-color: #0a0909;
+    color: #fff;
+    width: 100%;
+}
+
+.carrito-header-title {
+    justify-self: start;
+    color: #625c5c;
+}
+
+.carrito-header-button {
+    cursor: pointer;
+    color: #625c5c;
+}
+
+.carrito-container>.carrito-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 70%;
+    margin: 10px;
+}
+
+.carrito-container>div>img {
+    height: 120px;
+    width: 120px;
+}
+
+.total-content {
+    font-size: 25px;
+    padding: 20px;
+    text-align: center;
+    padding-top: 20px;
+}
+
+/* Estilos para el footer */
+
+.footer {
+    position: end;
+    bottom: 0;
+    width: 100%;
+    background-color: #212020;
+    color: #d7d4d4;
+    padding: 20px 0;
+    text-align: center;
+    font-family: Arial, sans-serif;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.footer p {
+    margin: 10px 0;
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: #bbb;
+}
+
+/*Botones Carrito*/
+.eliminar {
+    cursor: pointer;
+}
+
+.sumar {
+    cursor: pointer;
+}
+
+.restar {
+    cursor: pointer;
+}
+
+/*Cantidad Carrito*/
+.cantidad-carrito {
+    background-color: #fff;
+    color: black;
+    border-radius: 100%;
+    font-size: 12px;
+    padding: 4px;
+    top: 30px;
+    right: 12px;
+    position: absolute;
+    display: none;
+}
+
+/* Estilos para el contenedor de los botones */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+/* Estilos para los botones */
+.buttons-container button {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-right: 1rem;
+}
+
+/* Estilo para el último botón en la fila */
+.buttons-container button:last-child {
+    margin-right: 0;
+}
+
+/* Estilo para el botón Vaciar Carrito */
+.vaciar-carrito-button {
+    background-color: #e74c3c;
+    color: #fff;
+}
+
+.vaciar-carrito-button:hover {
+    background-color: #c0392b;
+}
+
+/* Botón de confirmación en SweetAlert */
+.custom-swal-confirm {
+    background-color: #865519;
+    color: #fff;
+}
+
+.custom-swal-confirm:hover {
+    background-color: #885a10;
+}
+
+/* Botones de SweetAlert (Toastify) */
+.swal2-confirm {
+    background-color: #865519 !important;
+    color: #fff !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: background-color 0.3s;
+}
+
+.swal2-confirm:hover {
+    background-color: #7a4c13 !important;
+}

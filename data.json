@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "nombre": "Cerveza ÉTER",
+    "tipo": "Session IPA",
+    "gradoAlcohol": 5,
+    "precio": 3700,
+    "imagen": "img/c1.png"
+  },
+  {
+    "id": 2,
+    "nombre": "Cerveza ASTRAL",
+    "tipo": "Amber Lager",
+    "gradoAlcohol": 5.3,
+    "precio": 2900,
+    "imagen": "img/c3.png"
+  },
+  {
+    "id": 3,
+    "nombre": "Cerveza FÉNIX",
+    "tipo": "Stout",
+    "gradoAlcohol": 6.5,
+    "precio": 3200,
+    "imagen": "img/c2.png"
+  },
+  {
+    "id": 4,
+    "nombre": "Cerveza ÉXTASIS",
+    "tipo": "Honey",
+    "gradoAlcohol": 5,
+    "precio": 3500,
+    "imagen": "img/c4.png"
+  },
+  {
+    "id": 5,
+    "nombre": "Cerveza NEBULOSA",
+    "tipo": "American IPA",
+    "gradoAlcohol": 6.5,
+    "precio": 4000,
+    "imagen": "img/c5.png"
+  },
+  {
+    "id": 6,
+    "nombre": "Cerveza ESTELAR",
+    "tipo": "Amber Lager",
+    "gradoAlcohol": 5.3,
+    "precio": 3300,
+    "imagen": "img/c6.png"
+  },
+  {
+    "id": 7,
+    "nombre": "Cerveza GALÁCTICA",
+    "tipo": "Hoppy Lager",
+    "gradoAlcohol": 5,
+    "precio": 3300,
+    "imagen": "img/c7.png"
+  },
+  {
+    "id": 8,
+    "nombre": "Cerveza CÓSMICA",
+    "tipo": "Session IPA",
+    "gradoAlcohol": 5,
+    "precio": 3500,
+    "imagen": "img/c8.png"
+  },
+  {"id": 8,
+  "nombre": "Cerveza PLUTÓN",
+  "tipo": "Amber Lager",
+  "gradoAlcohol": 5.3,
+  "precio": 3300,
+  "imagen": "img/c9.png"}
+]
