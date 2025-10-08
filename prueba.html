@@ -450,9 +450,88 @@
         .footer-content p {
             margin: 0;
         }
+
+        /* Age verification overlay (modern glass card) */
+        .age-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.95); /* fondo casi negro */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            backdrop-filter: blur(2px) saturate(100%);
+            -webkit-backdrop-filter: blur(2px) saturate(100%);
+            animation: fadeIn 300ms ease forwards;
+        }
+
+        .age-card {
+            width: min(520px, 92%);
+            background: linear-gradient(180deg, rgba(20,20,20,0.96), rgba(10,10,10,0.92));
+            border: 1px solid rgba(255,255,255,0.04);
+            padding: 28px;
+            border-radius: 14px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.7);
+            color: #f3f4f6;
+            text-align: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .age-card h2 {
+            margin-bottom: 8px;
+            font-size: 1.6rem;
+            color: #ffcc00;
+            letter-spacing: 0.2px;
+        }
+
+        .age-card p { color: #d1d5db; margin-bottom: 18px; }
+
+        .age-buttons { display: flex; gap: 12px; justify-content: center; }
+
+        .age-btn {
+            padding: 10px 16px;
+            border-radius: 10px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 160ms ease, box-shadow 160ms ease;
+            min-width: 140px;
+        }
+
+        .age-btn:active { transform: translateY(1px); }
+
+        .age-accept {
+            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            color: #022018;
+            box-shadow: 0 6px 18px rgba(46,204,113,0.14);
+        }
+
+        .age-decline {
+            background: linear-gradient(90deg, #ff4d4f, #e11d48); /* rojo vibrante */
+            color: #fff;
+            border: none;
+            box-shadow: 0 6px 18px rgba(225,29,72,0.14);
+        }
+
+        .age-note { font-size: 0.85rem; color: #9ca3af; margin-top: 12px; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
+    <!-- Age verification overlay -->
+    <div id="ageOverlay" class="age-overlay" role="dialog" aria-modal="true" aria-labelledby="ageTitle" aria-describedby="ageDesc">
+        <div class="age-card">
+            <h2 id="ageTitle">¿Tienes 18 años o más?</h2>
+            <p id="ageDesc">Este sitio contiene contenido dirigido a adultos. Confirma que eres mayor de edad para continuar.</p>
+            <div class="age-buttons">
+                <button id="ageAccept" class="age-btn age-accept">Soy mayor</button>
+                <button id="ageDecline" class="age-btn age-decline">No, soy menor</button>
+            </div>
+            <div class="age-note">Tu elección se guardará en este dispositivo.</div>
+        </div>
+    </div>
+
     <!-- Barra de navegación -->
     <div class="nav-container">
         <nav class="navbar">
@@ -569,6 +648,80 @@
     <!-- Scripts -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        (function() {
+            const OVERLAY_KEY = 'age_verified_18_plus_v1';
+            const overlay = document.getElementById('ageOverlay');
+            const acceptBtn = document.getElementById('ageAccept');
+            const declineBtn = document.getElementById('ageDecline');
+
+            function hideOverlay() {
+                if (!overlay) return;
+                overlay.style.display = 'none';
+            }
+
+            function showOverlay() {
+                if (!overlay) return;
+                overlay.style.display = 'flex';
+                // focus the primary action for keyboard users
+                acceptBtn && acceptBtn.focus();
+            }
+
+            function setVerified() {
+                try {
+                    localStorage.setItem(OVERLAY_KEY, 'yes');
+                } catch (e) {
+                    console.warn('No se pudo guardar la preferencia en localStorage', e);
+                }
+                hideOverlay();
+            }
+
+            function handleDecline() {
+                try {
+                    localStorage.setItem(OVERLAY_KEY, 'no');
+                } catch (e) { /* ignore */ }
+                // Replace page content with a friendly message
+                document.body.innerHTML = `
+                    <main style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:#071021;color:#eef2f7;">
+                        <div style="max-width:720px;text-align:center;">
+                            <h1 style="color:#ffd2d2;">Acceso restringido</h1>
+                            <p style="color:#cbd5e1;">Lo siento, debes tener al menos 18 años para ver este contenido. Puedes volver cuando seas mayor.</p>
+                            <p style="margin-top:18px;color:#94a3b8;">Si crees que esto es un error, contacta con el administrador del sitio.</p>
+                        </div>
+                    </main>
+                `;
+            }
+
+            // initialize
+            try {
+                const stored = localStorage.getItem(OVERLAY_KEY);
+                if (stored === 'yes') {
+                    hideOverlay();
+                } else if (stored === 'no') {
+                    handleDecline();
+                } else {
+                    showOverlay();
+                }
+            } catch (e) {
+                // if localStorage access throws, just show overlay
+                showOverlay();
+            }
+
+            acceptBtn && acceptBtn.addEventListener('click', setVerified);
+            declineBtn && declineBtn.addEventListener('click', handleDecline);
+
+            // accessibility: close with Escape only if we've accepted
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    try {
+                        if (localStorage.getItem(OVERLAY_KEY) === 'yes') hideOverlay();
+                    } catch (err) {}
+                }
+            });
+        })();
+    </script>
+
     <script>
         // Datos de productos (simulando data.json)
         const products = [
